@@ -57,7 +57,7 @@ def parse(file):
 
 
 """
-Checks whether a argument passed is a .csv file. 
+Checks whether an argument passed is a .csv file. 
 Returns True if file is a .csv; false otherwise.
 """
 def is_csv_file(filename):
