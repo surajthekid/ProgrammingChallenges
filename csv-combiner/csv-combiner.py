@@ -1,5 +1,4 @@
-# TODO: figure out the way to run this program as ./csvparser.py
-#!/usr/bin/python
+# !/usr/bin/python3
 import sys
 import csv
 import re
@@ -49,7 +48,7 @@ def parse(file):
             curr_cat = row['category'] # get category
             # handle cases with category
             curr_cat = escape_quotes(curr_cat) # case: there is a /" in our category
-            curr_cat = remove_dq(curr_cat) # case: "" from regex and " at end of string
+            # curr_cat = remove_dq(curr_cat) # case: "" from regex and " at end of string
             
             # build row of data
             data = '"' + curr_email + '","' + curr_cat + '","' + file_name + '"'
