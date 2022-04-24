@@ -12,27 +12,6 @@ def get_filename(filename):
     return name[0]
 
 """
-Function that finds any cases of \ and replaces them with \" to keep
-information accurate from original csv file.
-"""
-def escape_quotes(entry):
-    new_entry = re.sub(r'\\', r'\"', entry)
-    return new_entry.strip()
-
-"""
-Remove any instance of double quote at the end of a entry.
-Additionally, replace any pairs of "" with a single quote.
-This case happens due to how regex is written to handle escape characters.
-"""
-def remove_dq(entry):
-    if entry.endswith('"'):
-        entry = entry.rstrip(entry[-1])
-
-    # any double quotes present, replace with single quote
-    entry = entry.replace(r'""', r'"') 
-    return entry.strip()
-
-"""
 Function that parses each .csv file.
 Print's each new row of data to stdout.
 """
@@ -40,15 +19,13 @@ def parse(file):
     file_name = get_filename(file) # get filename.csv
 
     with open(file, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f, delimiter=',') # dictionary of csv
+        reader = csv.DictReader(f, delimiter=',', escapechar='\\', quotechar='\"') # dictionary of csv
 
         # loop over all rows of csv
         for row in reader:
             curr_email = row['email_hash'] # get email 
             curr_cat = row['category'] # get category
-            # handle cases with category
-            curr_cat = escape_quotes(curr_cat) # case: there is a /" in our category
-            # curr_cat = remove_dq(curr_cat) # case: "" from regex and " at end of string
+            curr_cat = curr_cat.replace('"', '')
             
             # build row of data
             data = '"' + curr_email + '","' + curr_cat + '","' + file_name + '"'
