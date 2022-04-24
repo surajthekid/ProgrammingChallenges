@@ -9,7 +9,6 @@ import os
 Function that gets the filename used for writing it to the new .csv file. 
 """
 def get_filename(filename):
-    # TODO: try except for getting name if the csv is not inside .fixtures folder
     name = re.findall(r'.+/(.+)', filename)
     return name[0]
 
@@ -42,7 +41,7 @@ def parse(file):
     file_name = get_filename(file) # get filename.csv
 
     with open(file, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f) # dictionary of csv
+        reader = csv.DictReader(f, delimiter=',') # dictionary of csv
 
         # loop over all rows of csv
         for row in reader:
